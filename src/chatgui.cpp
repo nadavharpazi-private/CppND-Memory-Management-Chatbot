@@ -1,7 +1,8 @@
-#include <wx/filename.h>
+ #include <wx/filename.h>
 #include <wx/colour.h>
 #include <wx/image.h>
 #include <string>
+#include <memory>
 #include "chatbot.h"
 #include "chatlogic.h"
 #include "chatgui.h"
@@ -16,7 +17,7 @@ IMPLEMENT_APP(ChatBotApp);
 //std::string dataPath = "../";
 //std::string imgBasePath = dataPath + "images/";
 static const std::string dataPath = ".\\";
-static const std::string imgBasePath = dataPath + "images\\";
+static const std::string imgBasePath = "images\\";
 
 bool ChatBotApp::OnInit()
 {
@@ -107,7 +108,7 @@ EVT_PAINT(ChatBotPanelDialog::paintEvent) // catch paint events
 END_EVENT_TABLE()
 
 ChatBotPanelDialog::ChatBotPanelDialog(wxWindow *parent, wxWindowID id)
-    : wxScrolledWindow(parent, id)
+    : wxScrolledWindow(parent, id), _chatLogic(new ChatLogic)
 {
     // sizer will take care of determining the needed scroll size
     _dialogSizer = new wxBoxSizer(wxVERTICAL);
@@ -118,9 +119,6 @@ ChatBotPanelDialog::ChatBotPanelDialog(wxWindow *parent, wxWindowID id)
 
     //// STUDENT CODE
     ////
-
-    // create chat logic instance
-    _chatLogic = new ChatLogic(); 
 
     // pass pointer to chatbot dialog so answers can be displayed in GUI
     _chatLogic->SetPanelDialogHandle(this);
@@ -136,8 +134,6 @@ ChatBotPanelDialog::~ChatBotPanelDialog()
 {
     //// STUDENT CODE
     ////
-
-    delete _chatLogic;
 
     ////
     //// EOF STUDENT CODE
