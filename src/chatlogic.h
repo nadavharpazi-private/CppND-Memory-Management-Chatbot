@@ -46,9 +46,9 @@ public:
 
     // proprietary functions
     void LoadAnswerGraphFromFile(std::string filename);
-    void SendMessageToChatbot(std::string message);
-    void SendMessageToUser(std::string message);
-    wxBitmap *GetImageFromChatbot();
+    void SendMessageToChatbot(std::string message) const;
+    void SendMessageToUser(std::string message) const;
+    wxBitmap *GetImageFromChatbot() const;
 };
 
 #endif /* CHATLOGIC_H_ */

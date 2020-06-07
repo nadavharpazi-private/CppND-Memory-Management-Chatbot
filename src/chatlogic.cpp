@@ -234,17 +234,17 @@ void ChatLogic::SetChatbotHandle(ChatBot *chatbot)
     _chatBot = chatbot;
 }
 
-void ChatLogic::SendMessageToChatbot(std::string message)
+void ChatLogic::SendMessageToChatbot(std::string message) const
 {
     _chatBot->ReceiveMessageFromUser(message);
 }
 
-void ChatLogic::SendMessageToUser(std::string message)
+void ChatLogic::SendMessageToUser(std::string message) const
 {
     _panelDialog->PrintChatbotResponse(message);
 }
 
-wxBitmap *ChatLogic::GetImageFromChatbot()
+wxBitmap *ChatLogic::GetImageFromChatbot() const
 {
     return _chatBot->GetImageHandle();
 }
