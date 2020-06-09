@@ -26,6 +26,7 @@ private:
     // data handles (not owned)
     GraphNode *_currentNode;
     ChatBot *_chatBot;
+    std::string imagePath;
     ChatBotPanelDialog *_panelDialog;
 
     // proprietary type definitions

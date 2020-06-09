@@ -20,13 +20,12 @@ ChatLogic::ChatLogic()
 
     // create instance of chatbot
 #ifndef __WXMSW__
-    _chatBot = new ChatBot("../images/chatbot.png");
+    imagePath = "../images/chatbot.png";
 #else
-	_chatBot = new ChatBot("images\\chatbot.png");
+    imagePath = "images\\chatbot.png";
 #endif
 
-    // add pointer to chatlogic so that chatbot answers can be passed on to the GUI
-    _chatBot->SetChatLogicHandle(this);
+    _chatBot = nullptr;
 
     ////
     //// EOF STUDENT CODE
@@ -208,9 +207,16 @@ void ChatLogic::LoadAnswerGraphFromFile(std::string filename)
         }
     }
 
+    // create instance of chatbot
+	ChatBot *chatBot = new ChatBot(imagePath);
+
+    // add pointer to chatlogic so that chatbot answers can be passed on to the GUI
+    chatBot->SetChatLogicHandle(this);
+
     // add chatbot to graph root node
-    _chatBot->SetRootNode(rootNode);
-    rootNode->MoveChatbotHere(_chatBot);
+    chatBot->SetRootNode(rootNode);
+	rootNode->MoveChatbotHere(std::move(_chatBot));
+    chatBot = nullptr;
     
     ////
     //// EOF STUDENT CODE

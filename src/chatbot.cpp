@@ -172,6 +172,11 @@ void ChatBot::SetCurrentNode(GraphNode *node)
     _chatLogic->SendMessageToUser(answer);
 }
 
+void ChatBot::SetChatLogicHandle(ChatLogic *chatLogic) { 
+    _chatLogic = chatLogic; 
+    _chatLogic->SetChatbotHandle(this);
+}
+
 int ChatBot::ComputeLevenshteinDistance(std::string s1, std::string s2)
 {
     // convert both strings to upper-case before comparing
