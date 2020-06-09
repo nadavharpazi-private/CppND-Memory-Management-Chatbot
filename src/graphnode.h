@@ -16,10 +16,10 @@ private:
     ////
 
     // data handles (owned)
-    std::vector<GraphEdge *> _childEdges;  // edges to subsequent nodes
+    std::vector<std::shared_ptr<GraphEdge>> _childEdges;  // edges to subsequent nodes
 
     // data handles (not owned)
-    std::vector<GraphEdge *> _parentEdges; // edges to preceding nodes 
+    std::vector<std::weak_ptr<GraphEdge>> _parentEdges; // edges to preceding nodes 
     ChatBot *_chatBot;
 
     ////
@@ -43,8 +43,8 @@ public:
 
     // proprietary functions
     void AddToken(std::string token); // add answers to list
-    void AddEdgeToParentNode(GraphEdge *edge);
-    void AddEdgeToChildNode(GraphEdge *edge);
+    void AddEdgeToParentNode(std::shared_ptr<GraphEdge> edge);
+    void AddEdgeToChildNode(std::shared_ptr<GraphEdge> edge);
 
     //// STUDENT CODE
     ////
