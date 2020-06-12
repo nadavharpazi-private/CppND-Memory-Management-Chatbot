@@ -11,8 +11,6 @@
 // constructor WITHOUT memory allocation
 ChatBot::ChatBot()
 {
-    std::cout << "ChatBot Constructor" << std::endl;
-
     // invalidate data handles
     _image = nullptr;
     _chatLogic = nullptr;
@@ -23,7 +21,7 @@ ChatBot::ChatBot()
 // constructor WITH memory allocation
 ChatBot::ChatBot(std::string filename)
 {
-    std::cout << "ChatBot filename Constructor" << std::endl;
+    std::cout << "ChatBot Constructor" << std::endl;
     
     // invalidate data handles
     _chatLogic = nullptr;
@@ -104,8 +102,6 @@ ChatBot::ChatBot(ChatBot &&source) {
     source._chatLogic = nullptr;
     source._rootNode = nullptr;
     source._currentNode = nullptr;
-
-    _chatLogic->SetChatbotHandle(this);
 }
 
 // 5. move assignment operator
@@ -131,7 +127,6 @@ ChatBot::operator=(ChatBot &&source) {
     source._rootNode = nullptr;
     source._currentNode = nullptr;
 
-    _chatLogic->SetChatbotHandle(this);
     return *this;
 }
 
@@ -184,6 +179,7 @@ void ChatBot::SetCurrentNode(GraphNode *node)
     std::string answer = answers.at(dis(generator));
 
     // send selected node answer to user
+	_chatLogic->SetChatbotHandle(this);
     _chatLogic->SendMessageToUser(answer);
 }
 
