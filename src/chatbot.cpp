@@ -1,4 +1,4 @@
- #include <iostream>
+#include <iostream>
 #include <random>
 #include <algorithm>
 #include <ctime>
@@ -17,6 +17,7 @@ ChatBot::ChatBot()
     _image = nullptr;
     _chatLogic = nullptr;
     _rootNode = nullptr;
+    _currentNode = nullptr;
 }
 
 // constructor WITH memory allocation
@@ -27,6 +28,7 @@ ChatBot::ChatBot(std::string filename)
     // invalidate data handles
     _chatLogic = nullptr;
     _rootNode = nullptr;
+    _currentNode = nullptr;
 
     // load image into heap memory
     _filename = filename;
@@ -59,8 +61,9 @@ ChatBot::ChatBot(const ChatBot &source) {
         _image = new wxBitmap(_filename, wxBITMAP_TYPE_PNG);
     }
 
-    _chatLogic = nullptr;
-    _rootNode = nullptr;
+    _chatLogic = source._chatLogic;
+    _rootNode = source._rootNode;
+    _currentNode = source._currentNode;
 }
 
 // 3. copy assignment operator
@@ -79,8 +82,9 @@ ChatBot::operator=(const ChatBot &source) {
     if (!_filename.empty()) {
         _image = new wxBitmap(_filename, wxBITMAP_TYPE_PNG);
     }
-    _chatLogic = nullptr;
-    _rootNode = nullptr;
+    _chatLogic = source._chatLogic;
+    _rootNode = source._rootNode;
+    _currentNode = source._currentNode;
 
     return *this;
 }
@@ -92,10 +96,16 @@ ChatBot::ChatBot(ChatBot &&source) {
     _image = source._image;
     _chatLogic = source._chatLogic;
     _rootNode = source._rootNode;
+	_filename = source._filename;
+    _currentNode = source._currentNode;
 
     source._image = nullptr;
+    source._filename = "";
     source._chatLogic = nullptr;
     source._rootNode = nullptr;
+    source._currentNode = nullptr;
+
+    _chatLogic->SetChatbotHandle(this);
 }
 
 // 5. move assignment operator
@@ -106,17 +116,22 @@ ChatBot::operator=(ChatBot &&source) {
     if (this == &source) {
         return *this;
     }
-    
+
     delete _image;
 
     _image = source._image;
     _chatLogic = source._chatLogic;
     _rootNode = source._rootNode;
+	_filename = source._filename;
+    _currentNode = source._currentNode;
 
     source._image = nullptr;
+    source._filename = "";
     source._chatLogic = nullptr;
     source._rootNode = nullptr;
+    source._currentNode = nullptr;
 
+    _chatLogic->SetChatbotHandle(this);
     return *this;
 }
 
