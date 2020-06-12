@@ -100,9 +100,12 @@ ChatBot::ChatBot(ChatBot &&source) {
     _currentNode = source._currentNode;
 
     source._image = nullptr;
+    source._filename = "";
     source._chatLogic = nullptr;
     source._rootNode = nullptr;
     source._currentNode = nullptr;
+
+    _chatLogic->SetChatbotHandle(this);
 }
 
 // 5. move assignment operator
@@ -113,7 +116,7 @@ ChatBot::operator=(ChatBot &&source) {
     if (this == &source) {
         return *this;
     }
-    
+
     delete _image;
 
     _image = source._image;
@@ -123,10 +126,12 @@ ChatBot::operator=(ChatBot &&source) {
     _currentNode = source._currentNode;
 
     source._image = nullptr;
+    source._filename = "";
     source._chatLogic = nullptr;
     source._rootNode = nullptr;
     source._currentNode = nullptr;
 
+    _chatLogic->SetChatbotHandle(this);
     return *this;
 }
 
