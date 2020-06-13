@@ -18,8 +18,7 @@ ChatLogic::ChatLogic()
     //// STUDENT CODE
     ////
 
-    // create instance of chatbot
-#ifndef __WXMSW__
+ #ifndef __WXMSW__
     imagePath = "../images/chatbot.png";
 #else
     imagePath = "images\\chatbot.png";
